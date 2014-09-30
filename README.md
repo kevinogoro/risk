@@ -6,5 +6,5 @@ A R package for make simple the common tasks for validation of models and scores
 ```r
 if (!require("devtools"))
   install.packages("devtools")
-devtools::install_github("Rsik", "jbkunst")
+devtools::install_github("Risk", "jbkunst")
 ```
