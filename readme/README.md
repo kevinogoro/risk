@@ -138,13 +138,13 @@ oddstable(score, label, breaks = 0:5*200)
 plot_roc(score, label)
 ```
 
-![plot of chunk unnamed-chunk-4](./readme/README_files/figure-html/unnamed-chunk-41.png) 
+![plot of chunk unnamed-chunk-4](./README_files/figure-html/unnamed-chunk-41.png) 
 
 ```r
 plot_gain(score, label)
 ```
 
-![plot of chunk unnamed-chunk-4](./readme/README_files/figure-html/unnamed-chunk-42.png) 
+![plot of chunk unnamed-chunk-4](./README_files/figure-html/unnamed-chunk-42.png) 
 
 ```r
 # Confussion matrix

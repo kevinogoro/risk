@@ -52,14 +52,13 @@ score_indicators <- function(score, label){
   return(res)
 }
 
-oddstable <- function(score, label, min = min(score), max = max(score), breaks = NULL,
-                      nclass = 10, round = 0, quantile = TRUE, format.2 = TRUE){
+oddstable <- function(score, label, breaks = NULL, nclass = 10, quantile = TRUE){
   require(ggplot2)
   
   if(missing(breaks) & quantile){
-    score_cat <- cut_interval(score, n = nclass)
-  } else if (missing(breaks) & !quantile) {
     score_cat <- cut_number(score, n = nclass)
+  } else if (missing(breaks) & !quantile) {
+    score_cat <- cut_interval(score, n = nclass)
   } else {
     score_cat <- cut(score, breaks = breaks)
   }

@@ -1,122 +1,63 @@
-## shoRtcut
-
-shoRtcut is an R package to make the life with R even more easier.
-
-### Installation
-
-You can install `shoRcut` from `github` using the `devtools` package.
-
+---
+output:
+  html_document:
+    fig_width: 5
+    highlight: null
+    keep_md: yes
+    theme: null
+---
 ```{r, message=FALSE, echo=FALSE, warning=FALSE}
 options(warn=-1)
-d <- readLines("README.md")
-d <- gsub("\\(figure\\/", "\\(readme\\/figure\\/", d)
-writeLines(d, "../README.md")
+d <- readLines("readme//README.md")
+d <- gsub("\\.\\/README_files", "./readme/README_files", d)
+writeLines(d, "README.md")
 rm(list=ls())
 ```
 
+# Risk
+A R package for make simple the common tasks for validation of models and scores.
 
-
-```{r, message=FALSE}
-library(devtools)
-install_github("shoRtcut", "jbkunst")
-library(shoRtcut)
-```
-
-
-### Some functions in the package ShoRtcut
-
-
-#### Exporting tables
-
-The function `writetable` requires the name (relative or full path) of the file with the extension and the `data.frame` to export. Also support `json` format.
+## Installation
+You can install `Risk` from `github` using the `devtools` package.
 
 ```{r, message=FALSE}
-data(iris)
-
-t1 <- cbind(head(iris, 3), from = "excel")
-t2 <- cbind(tail(iris, 3), from = "text")
-t3 <- cbind(head(iris, 3), other_from = "json")
-
-writetable(t1, "excel_file.xlsx")
-writetable(t2, "txt_file.txt")
-writetable(t3, "json_file.json")
+if (!require("devtools"))
+  install.packages("devtools")
+devtools::install_github("jbkunst/Risk")
 ```
 
+## Some Functions
+
+This package assume the label for loan of clients is: `1` for a good characteric, `0` otherwise. 
+
+```{r, message=FALSE, echo=FALSE}
+library(Risk)
+```
 
 ```{r, message=FALSE}
-data(mtcars)
-writetable(mtcars, "file.json")
+data(predictions)
+head(predictions)
+
+score <- predictions$score*1000
+label <- predictions$label
+
+# Some indicators
+ks(score, label)
+aucroc(score, label)
+
+# A lot of indicators
+score_indicators(score, label)
+
+
+
+# Odds Table
+oddstable(score, label)
+oddstable(score, label, breaks = 0:5*200)
+
+# For Plotting
+plot_roc(score, label)
+plot_gain(score, label)
+
+# Confussion matrix
+conf_matrix(ifelse(score<500, 0, 1), label)
 ```
-
-#### Reading tables
-
-The function `readtable` require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the `rbind.fill` function in the `plyr` package.
-
-
-```{r message=FALSE, }
-table1 <- readtable(c("excel_file.xlsx", "txt_file.txt"))
-table1
-
-table2 <- readtable("json_file.json")
-table2
-```
-
-
-#### Frequency table
-
-The function `freqtable` return a `data.frame` with the information of the counts of the levels of variable.
-
-```{r}
-data(credit)
-freqtable(credit$marital_status)
-freqtable(credit$marital_status, add.total=FALSE)
-freqtable(credit$residence_type, sort.by.count=TRUE, pretty=TRUE)
-```
-
-This function also make a cross table if `variable2` argument is given.
-
-```{r}
-freqtable(credit$marital_status, credit$residence_type)
-freqtable(credit$marital_status, credit$residence_type,
-          add.total=FALSE, pretty=TRUE)
-```
-
-
-#### Plot functions
-
-There are shortcuts functions to plot distributions of variables based on `ggplot2` package.
-
-```{r message=FALSE, fig.height=5, fig.width=5}
-data(credit)
-plot_dist(credit$marital_status)
-```
-
-```{r message=FALSE, fig.height=5, fig.width=5}
-plot_dist(credit$age) + ggtitle("A title") + xlab("I'm here, in the xlab")
-```
-
-You can also split the plot according a new variable.
-```{r message=FALSE, fig.height=5, fig.width=5}
-plot_dist(credit$age, facet=credit$marital_status)
-```
-
-Or even show a bivariate (1 or 0) response variable:
-```{r message=FALSE, fig.height=5, fig.width=5}
-plot_dist(credit$marital_status, indicator=credit$bad)
-
-credit <- subset(credit, sex %in% c("F", "M"))
-plot_dist(credit$age, indicator=credit$bad, facet=credit$sex)
-```
-
-#### Other functions
-There are other functions and others in development:
-* str_left
-* str_rigth
-* str_capitalize
-* str_clean
-* str_first_upper
-* str_is_email
-* str_pattern
-* truncate
-* plot_pie
-* plot_pareto
