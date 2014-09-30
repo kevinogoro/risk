@@ -1,4 +1,10 @@
-Risk
-====
+# Risk
+A R package for make simple the common tasks for validation of models and scores.
 
-A R packages for make simple the common tasks for validation of models and scores.
+## Installation
+
+```r
+if (!require("devtools"))
+  install.packages("devtools")
+devtools::install_github("Rsik", "jbkunst")
+```
