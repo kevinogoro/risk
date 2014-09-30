@@ -1,0 +1,7 @@
+importFrom(plyr)
+importFrom(dplyr)
+importFrom(ggplot2)
+importFrom(scales)
+importFrom(ROCR)
+
+exportPattern("^[[:alpha:]]+")
