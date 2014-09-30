@@ -8,9 +8,9 @@ output:
 ---
 ```{r, message=FALSE, echo=FALSE, warning=FALSE}
 options(warn=-1)
-d <- readLines("readme//README.md")
+d <- readLines("README.md")
 d <- gsub("\\.\\/README_files", "./readme/README_files", d)
-writeLines(d, "README.md")
+writeLines(d, "../README.md")
 rm(list=ls())
 ```
 
@@ -26,9 +26,9 @@ if (!require("devtools"))
 devtools::install_github("jbkunst/Risk")
 ```
 
-## Some Functions
+## Valdation
 
-This package assume the label for loan of clients is: `1` for a good characteric, `0` otherwise. 
+This package assume the label for loan of clients is: `1` for a good characteristic, `0` otherwise. 
 
 ```{r, message=FALSE, echo=FALSE}
 library(Risk)
@@ -48,16 +48,17 @@ aucroc(score, label)
 # A lot of indicators
 score_indicators(score, label)
 
-
-
 # Odds Table
 oddstable(score, label)
 oddstable(score, label, breaks = 0:5*200)
 
-# For Plotting
-plot_roc(score, label)
-plot_gain(score, label)
-
 # Confussion matrix
 conf_matrix(ifelse(score<500, 0, 1), label)
+```
+
+
+## Ploting
+```{r, message=FALSE}
+plot_roc(score, label)
+plot_gain(score, label)
 ```
