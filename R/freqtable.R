@@ -2,7 +2,7 @@ freqtable <- function(x, sort.by.freq = TRUE, add.total = FALSE){
   library(plyr)
   library(dplyr)
   
-  freqt <- data.frame(Class = ifelse(is.na(x), "", x)) %>%
+  freqt <- data.frame(Class = addNA(x)) %>%
     group_by(Class) %>%
     summarise(Freq = n())
     
