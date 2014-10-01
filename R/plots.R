@@ -1,6 +1,6 @@
 plot_roc <- function(score, label){
-  require(ROCR)
-  require(ggplot2)
+  library(ROCR)
+  library(ggplot2)
 
   pred <- prediction(score, label)
   perf <- performance(pred,"tpr","fpr")
@@ -15,7 +15,7 @@ plot_roc <- function(score, label){
 }
 
 plot_gain <- function(score, label){
-  require(ggplot2)
+  library(ggplot2)
   
   df <- data.frame(percentiles = seq(0, 1, length = 100),
                    gain = gain(score, label , seq(0, 1, length = 100)))
@@ -30,7 +30,7 @@ plot_gain <- function(score, label){
 
 
 plot_br_heatmap <- function(var.x, var.y, label){
-  require(plyr)
+  library(plyr)
   
   daux <- ddply(data.frame(var.x, var.y, label),
                 .(var.x, var.y), summarise, BadRate = (1-mean(label)))

@@ -1,5 +1,5 @@
 ks <- function(score, label){
-  require(ROCR)
+  library(ROCR)
   pred <- prediction(score,label)
   perf <- performance(pred,"tpr","fpr")
   ks <- max(abs(attr(perf,'y.values')[[1]]-attr(perf,'x.values')[[1]]))
@@ -7,7 +7,7 @@ ks <- function(score, label){
 }
 
 aucroc <- function(score, label){
-  require(ROCR)
+  library(ROCR)
   pred <- prediction(score,label)
   perf <- performance(pred,"tpr","fpr")
   aucroc <- attr(performance(pred,"auc"),"y.values")[[1]]
@@ -27,7 +27,7 @@ divergence <- function(score, label){
 }
 
 gain <- function(score, label, percents = c(0.10, 0.20, 0.30, 0.40, 0.50)){
-  require(scales)
+  library(scales)
   g <- ecdf(score[label==0])(quantile(score,percents))
   names(g) <- percent(percents)
   g
@@ -53,7 +53,7 @@ score_indicators <- function(score, label){
 }
 
 oddstable <- function(score, label, breaks = NULL, nclass = 10, quantile = TRUE){
-  require(ggplot2)
+  library(ggplot2)
   
   if(missing(breaks) & quantile){
     score_cat <- cut_number(score, n = nclass)
