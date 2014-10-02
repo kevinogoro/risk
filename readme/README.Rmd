@@ -15,15 +15,15 @@ rm(list=ls())
 ```
 
 # Risk
-A R package for make simple the common tasks for validation of models and scores.
+A R package for make simpler the validation procedures of models.
 
 ## Installation
-You can install `Risk` from `github` using the `devtools` package.
+You can install `risk` from `github` using the `devtools` package.
 
 ```{r, message=FALSE}
 if (!require("devtools"))
   install.packages("devtools")
-devtools::install_github("jbkunst/Risk")
+devtools::install_github("jbkunst/risk")
 ```
 
 ## Valdation
