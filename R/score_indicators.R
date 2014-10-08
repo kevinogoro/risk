@@ -136,5 +136,6 @@ conf_matrix_cut <- function(score, label, nbreaks = 100){
   
   d <- reshape2::dcast(cuts_indicators, score ~ term.short)
   
-  reponse <- list(score.values = d, plot = p)  
+  response <- list(score.values = d, plot = p)  
+  return(response)
 }
