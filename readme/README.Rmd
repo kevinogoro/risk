@@ -4,6 +4,7 @@ output:
     fig_width: 5
     highlight: null
     keep_md: yes
+    theme: null
 ---
 ```{r, message=FALSE, echo=FALSE, warning=FALSE}
 options(warn=-1)

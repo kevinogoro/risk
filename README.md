@@ -15,7 +15,7 @@ devtools::install_github("jbkunst/risk")
 
 ## Valdation
 
-This package assume the label for loan of clients is: `1` for a good characteristic, `0` otherwise. 
+This package assume: `1` for a good characteristic, `0` otherwise. 
 
 
 
