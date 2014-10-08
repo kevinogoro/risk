@@ -6,6 +6,11 @@ ks <- function(score, label){
   return(ks)
 }
 
+ks2 <- function(score1, score2){
+  value <- as.numeric(suppressWarnings(ks.test(score1, score2)[["statistic"]]))
+  return(value)
+}
+
 aucroc <- function(score, label){
   library(ROCR)
   pred <- prediction(score,label)
