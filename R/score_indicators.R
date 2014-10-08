@@ -86,7 +86,9 @@ oddstable <- function(score, label, breaks = NULL, nclass = 10, quantile = TRUE)
   return(ot)
 }
 
+
 conf_matrix <- function(pred_class, label) {
+  
   t <- table( true = label, prediction = pred_class)
   # http://www2.cs.uregina.ca/~dbd/cs831/notes/confusion_matrix/confusion_matrix.html
   #                     Prediction
@@ -99,11 +101,40 @@ conf_matrix <- function(pred_class, label) {
   TN <- t[1,1]/sum(t[1,])   #True negative rate (TN) is defined as the proportion of negatives cases that were classified correctly (MM)
   FN <- t[2,1]/sum(t[2,])   #False negative rate (FN) is the proportion of positives cases that were incorrectly classified as negative
   P <- t[2,2]/sum(t[,2])    #Precision (P) is the proportion of the predicted positive cases that were correct
-  return(list(confusion.matrix = t,
-              Accuracy = AC,
-              "True Positive rate (BB)" = TP,
-              "False Positive rate" = FP,
-              "True Negative rate (MM)" = TN,
-              "False Negative rate" = FN,
-              Precision = P))
+  
+  t2 <-  as.data.frame.matrix(t, row.names = NULL)
+  names(t2) <- paste("pred", colnames(t))
+  t2 <- cbind(class = paste("true", rownames(t)),  t2)
+  
+  t3 <- data.frame(term = c("Accuracy",  "Recall | True Positive rate (GG)",  "False Positive rate",
+                            "True Negative rate (BB)", "False Negative rate", "Precision"),
+                   term.short = c("AC", "Recall", "FP", "TN", "FN", "P"),
+                   value = c(AC, TP, FP, TN, FN, P), stringsAsFactors=FALSE)
+  
+  response <- list(confusion.matrix = t2,
+                   indicators = t3,
+                   indicators.t = setNames(data.frame(t(t3$value)), t3$term.short))
+  
+  return(response)
+}
+
+
+conf_matrix_cut <- function(score, label, nbreaks = 100){
+  
+  cut_off_points <- as.numeric(quantile(score, seq(nbreaks-2)/(nbreaks-1)))
+  
+  cuts_indicators <- plyr::ldply(cut_off_points, function(cut_off_point){ # cut_off_point <- sample(cut_off_points, size = 1)
+    daux <- cbind(score = cut_off_point,
+                  conf_matrix(as.numeric(score > cut_off_point), label)$indicators[,c(2:3)])
+    daux
+  }, .progress="text")
+  
+  p <- ggplot2::ggplot(cuts_indicators) +
+    geom_smooth(aes(score, value, color=term.short), size = 1.2) + 
+    scale_y_continuous(labels = scales::percent) +
+    scale_color_manual(values= c("#7CB5EC","#434348","#90ED7D","#F7A35C","#8085E9","#F15C80"))
+  
+  d <- reshape2::dcast(cuts_indicators, score ~ term.short)
+  
+  reponse <- list(score.values = d, plot = p)  
 }
