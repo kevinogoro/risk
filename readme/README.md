@@ -1,21 +1,21 @@
 
 
 # Risk
-A R package for make simple the common tasks for validation of models and scores.
+A R package for make simpler the validation procedures of models.
 
 ## Installation
-You can install `Risk` from `github` using the `devtools` package.
+You can install `risk` from `github` using the `devtools` package.
 
 
 ```r
 if (!require("devtools"))
   install.packages("devtools")
-devtools::install_github("jbkunst/Risk")
+devtools::install_github("jbkunst/risk")
 ```
 
 ## Valdation
 
-This package assume the label for loan of clients is: `1` for a good characteristic, `0` otherwise. 
+This package assume: `1` for a good characteristic, `0` otherwise. 
 
 
 

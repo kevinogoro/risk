@@ -4,7 +4,6 @@ output:
     fig_width: 5
     highlight: null
     keep_md: yes
-    theme: null
 ---
 ```{r, message=FALSE, echo=FALSE, warning=FALSE}
 options(warn=-1)
@@ -28,10 +27,10 @@ devtools::install_github("jbkunst/risk")
 
 ## Valdation
 
-This package assume the label for loan of clients is: `1` for a good characteristic, `0` otherwise. 
+This package assume: `1` for a good characteristic, `0` otherwise. 
 
 ```{r, message=FALSE, echo=FALSE}
-library(Risk)
+library(risk)
 ```
 
 ```{r, message=FALSE}
