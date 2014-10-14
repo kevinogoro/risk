@@ -19,8 +19,8 @@ supervised_clust <- function(label, variable){
   df2 <- as.data.frame.matrix(table(df$variable, df$variable_clus))
   
   if(is.numeric(variable)){
-    res <- llply(df2, function(x) c(min = min(as.numeric(rownames(d)[x!=0])),
-                                    max = max(as.numeric(rownames(d)[x!=0]))))
+    res <- llply(df2, function(x) c(min = min(as.numeric(rownames(df2)[x!=0])),
+                                    max = max(as.numeric(rownames(df2)[x!=0]))))
     
     cod <- ldply(res, function(x) data.frame(x[[1]],x[[2]]))
     names(cod) <- c("Cluster", "Min", "Max")
