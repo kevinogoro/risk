@@ -123,7 +123,6 @@ conf_matrix <- function(pred_class, label) {
   return(response)
 }
 
-
 conf_matrix_cut <- function(score, label, nbreaks = 100){
   
   cut_off_points <- as.numeric(quantile(score, seq(nbreaks-2)/(nbreaks-1)))

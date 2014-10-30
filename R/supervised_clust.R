@@ -11,6 +11,8 @@ supervised_clust <- function(label, variable){
   
   tree <- partykit::ctree(label ~ variable, data = df)
   
+  plot(tree)
+  
   df$variable_clus <- predict(tree, newdata = df, type ="node")
   df$variable_clus <- factor(df$variable_clus)
   
